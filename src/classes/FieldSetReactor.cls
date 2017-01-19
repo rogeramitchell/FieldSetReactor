@@ -27,7 +27,8 @@ public class FieldSetReactor
 	}
 
 	// method accepts field set name and object, returns List of FieldDetails
-	public static Map<String, FieldDetails> getFieldDetails(String fieldSetName, String sObjectName)
+	@RemoteAction
+	public static List<FieldDetails> getFieldDetails(String fieldSetName, String sObjectName)
 	{
 		// describe the object
 		SObjectType objectType = Schema.getGlobalDescribe().get(sObjectName);
@@ -40,9 +41,9 @@ public class FieldSetReactor
 		fieldSetMembers = objectDescribe.FieldSets.getMap().get(fieldSetName).getFields();
 
 		// instantiate map to hold FieldDetails for given field
-		Map<String, FieldDetails> fieldDetailsMap = new Map<String, FieldDetails>();
+		List<FieldDetails> fieldDetailsList = new List<FieldDetails>();
 
-		// loop over fieldSetMembers to begin populating fieldDetailsMap
+		// loop over fieldSetMembers to begin populating fieldDetailsList
 		for(Schema.FieldSetMember field : fieldSetMembers)
 		{
 			FieldDetails detail = new FieldDetails();
@@ -103,10 +104,10 @@ public class FieldSetReactor
 			}
 
 			// put detail into the fieldDetails Map
-			fieldDetailsMap.put(detail.name, detail);
+			fieldDetailsList.add(detail);
 		}
 
-		// return fieldDetailsMap
-		return fieldDetailsMap;
+		// return fieldDetailsList
+		return fieldDetailsList;
 	}
 }
