@@ -25,11 +25,11 @@ Visualforce.remoting.Manager.invokeAction('Controller.getFields', 'Fields_To_Dis
 The method call to the controller will return an object of objects, where each child object is the field name.
 ```java
 @RemoteAction
-public static Map<String, FieldSetReactor.FieldDetails> getFields(String fieldSetName, String objectName)
+public static List<FieldSetReactor.FieldDetails> getFields(String fieldSetName, String objectName)
 {
   return FieldSetReactor.getFieldDetails(fieldSetName, objectName);
 }
 ```
 
 Here's a resulting screenshot if the user were to `console.log(result)` in the callback function above.
-![return.png](return.png)
+![result.png](result.png)
